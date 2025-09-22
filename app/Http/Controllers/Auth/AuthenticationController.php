@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
@@ -65,12 +66,24 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         try {
+            // ambil user yg sedang login
+            // ambil token lalu hapus
+            $request->user()->currentAccessToken()->delete();
+
+            // beri respose jika berhasil logout
+            return response()->json([
+                'message' => 'berhasil logout',
+                'data' => null
+            ]);
 
         } catch (Exception $e) {
-            //
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => null
+            ], 500);
         }
     }
 }
