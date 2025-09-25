@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreSpotRequest extends FormRequest
 {
@@ -24,9 +25,9 @@ class StoreSpotRequest extends FormRequest
         return [
             'name' => 'required|string',
             'address' => 'required|string',
-            'picture' => 'required\image\image:jpeg,png,jpg,webp',
-            'category' => 'required|array\min:1',
-            'category.' => 'required|string'
+            'picture' => 'required|image|image:jpeg,png,jpg,webp',
+            'category' => 'required|array|min:1',
+            'category.*' => 'required|string'
         ];
     }
 }
